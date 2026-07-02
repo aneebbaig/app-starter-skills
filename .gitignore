@@ -1,0 +1,14 @@
+# OS
+.DS_Store
+
+# Editor
+.vscode/
+.idea/
+
+# Node (only present if you test-run the scripts locally)
+node_modules/
+
+# Local scratch
+*.log
+tmp/
+scratch/

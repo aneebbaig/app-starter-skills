@@ -55,8 +55,24 @@ skill by name:
 /fastapi-app
 ```
 
-The skill asks its variant questions, checks live versions, and scaffolds the
-project.
+The skill first asks for a short project brief (what the app does, main features,
+constraints), then its variant questions, then checks live versions and scaffolds
+the project.
+
+### What triggers a skill
+
+Claude Code activates a skill when your request matches its description. You do
+not need the exact name. Any of these phrasings will pull in the right skill:
+
+- `nextjs-app`: "new Next.js app", "scaffold a Next.js project", "start a React
+  web app", "set up a SaaS dashboard", "new landing page on Next.js".
+- `flutter-app`: "new Flutter app", "scaffold a Flutter project", "start a
+  cross-platform mobile app", "new Android or iOS app in Dart".
+- `fastapi-app`: "new FastAPI service", "scaffold a Python REST API", "start an
+  async backend", "new python backend".
+
+You can always force one by typing its name as a command: `/nextjs-app`,
+`/flutter-app`, `/fastapi-app`.
 
 ## The skills
 

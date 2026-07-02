@@ -1,0 +1,54 @@
+name: CI
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate JSON manifests
+        run: |
+          for f in .claude-plugin/marketplace.json \
+                   plugins/app-starter/.claude-plugin/plugin.json; do
+            python3 -c "import json,sys; json.load(open('$f')); print('ok:', '$f')"
+          done
+
+      - name: Every skill has SKILL.md with name and description
+        run: |
+          fail=0
+          for d in plugins/app-starter/skills/*/; do
+            name="$(basename "$d")"
+            [ "$name" = "shared" ] && continue
+            f="${d}SKILL.md"
+            if [ ! -f "$f" ]; then echo "missing $f"; fail=1; continue; fi
+            grep -q '^name:' "$f" || { echo "no name in $f"; fail=1; }
+            grep -q '^description:' "$f" || { echo "no description in $f"; fail=1; }
+          done
+          exit $fail
+
+      - name: No hardcoded package versions in references
+        run: |
+          # Reference prose must name packages, never pin versions. Flags things
+          # like "next@15", "^7.8.0", "==2.0.35", "version: 1.2.3" in skill docs.
+          if grep -rnE '(@|\^|~|==|>=|<=)[0-9]+\.[0-9]+' \
+               plugins/app-starter/skills/*/references/*.md \
+               plugins/app-starter/skills/*/SKILL.md ; then
+            echo "Hardcoded version found in skill docs. Describe packages by"
+            echo "name only; versions come from the live check at scaffold time."
+            exit 1
+          fi
+          echo "No hardcoded versions in skill docs."
+
+      - name: Shellcheck scripts
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y shellcheck
+          shellcheck -S warning \
+            plugins/app-starter/skills/*/scripts/check-latest.sh \
+            .github/scripts/style-guard.sh
+
+      - name: Style guard (plain ASCII only)
+        run: bash .github/scripts/style-guard.sh

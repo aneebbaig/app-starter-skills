@@ -1,0 +1,36 @@
+name: Bug report
+description: A skill scaffolded something wrong, a script failed, or the docs are off.
+labels: ["bug"]
+body:
+  - type: dropdown
+    id: skill
+    attributes:
+      label: Which skill
+      options:
+        - nextjs-app
+        - flutter-app
+        - fastapi-app
+        - shared / plugin setup
+    validations:
+      required: true
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened
+      description: What did the skill do, and what did you expect instead.
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      description: What you typed, the variant answers you gave, and where it went wrong.
+    validations:
+      required: true
+  - type: input
+    id: env
+    attributes:
+      label: Environment
+      description: Claude Code version, OS, and the relevant tool version (node, flutter, python).
+    validations:
+      required: false

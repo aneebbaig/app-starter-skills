@@ -11,12 +11,20 @@ structure, and the house git and CI workflow.
 
 First read these shared rules (they override anything you remember):
 `../shared/house-rules.md`, `../shared/no-ai-attribution.md`,
-`../shared/git-and-ci.md`, `../shared/docs-and-context.md`.
+`../shared/git-and-ci.md`, `../shared/docs-and-context.md`,
+`../shared/hardening.md`, and (for public repos) `../shared/open-source-docs.md`.
 
-## Step 0. Ask the variant questions
+## Step 0. Get the brief, then ask the variant questions (hard stop)
 
-These change what you scaffold, so ask them before doing anything. Ask in one
-batch, then proceed.
+This is a hard stop. Do not run any scaffolding command until the user has
+answered.
+
+First, get the project brief: one paragraph on what the app does, its main
+features, target users, and any hard constraints. If the user has not given one,
+ask for it. The brief drives naming, the route groups, and the data model.
+
+Then present the variant choices below, wait for the answers, and build. If a
+choice has multiple options, ask; do not assume. Ask in one batch.
 
 1. Repo visibility: private, open-source (public), or private-plus-open-source
    (a private product with a separate public core or SDK). See
@@ -58,6 +66,8 @@ exact dependency set to add and `references/structure.md` for the folder layout.
 - Dependency set and why each is chosen: `references/stack.md`.
 - Variant-specific setup (LICENSE, README tone, monorepo split, secret
   handling): `references/variants.md`.
+- Production hardening so the shipped app does not leak secrets or internals:
+  `../shared/hardening.md`.
 
 ## Step 4. Git, CI, docs, security
 
@@ -65,6 +75,10 @@ exact dependency set to add and `references/structure.md` for the folder layout.
   `../shared/git-and-ci.md`.
 - Write the CI workflow and quality gates from `references/quality-gates.md`.
 - Add `docs/` and README per `../shared/docs-and-context.md`.
+- For a public repo, ship the full open-source docs set (LICENSE, CONTRIBUTING,
+  CODE_OF_CONDUCT, SECURITY, issue and PR templates, CHANGELOG via release-please)
+  per `../shared/open-source-docs.md`, and run the open-source hard gate in
+  `../shared/no-ai-attribution.md` before the first push.
 - Gitignore `.env*`, add `.env.example`. Never commit secrets.
 
 ## Step 5. Verify before declaring done

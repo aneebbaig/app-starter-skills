@@ -12,11 +12,21 @@ workflow. Deployable to a container or Vercel.
 
 First read the shared rules (they override anything you remember):
 `../shared/house-rules.md`, `../shared/no-ai-attribution.md`,
-`../shared/git-and-ci.md`, `../shared/docs-and-context.md`.
+`../shared/git-and-ci.md`, `../shared/docs-and-context.md`,
+`../shared/hardening.md`, and (for public repos) `../shared/open-source-docs.md`.
 
-## Step 0. Ask the variant questions
+## Step 0. Get the brief, then ask the variant questions (hard stop)
 
-Ask in one batch, then proceed.
+This is a hard stop. Do not run any scaffolding command until the user has
+answered.
+
+First, get the project brief: one paragraph on what the service does, its main
+resources and endpoints, who calls it, and any hard constraints. If the user has
+not given one, ask for it. The brief drives naming, the domain modules, and the
+data model.
+
+Then ask the variant questions. If a choice has multiple options, ask; do not
+assume. Ask in one batch, then proceed.
 
 1. Repo visibility: private, open-source, or private-plus-open-source.
 2. Auth: JWT (python-jose or PyJWT), OAuth (Google), API-key, or none yet.
@@ -54,7 +64,11 @@ resolve current versions; do not force numbers you remember.
 
 - Layered app structure, async DB session, dependency-injected DB, settings, JWT
   auth: `references/structure.md`.
+- Best practices, scalable domain-modular architecture, and nothing hardcoded:
+  `references/best-practices.md`.
 - Dependency set and version-boundary notes: `references/stack.md`.
+- Production hardening (docs and schema disabled or gated in prod, generic error
+  bodies, debug off, CORS locked): `../shared/hardening.md`.
 
 ## Step 4. Git, CI, docs, security
 
@@ -62,7 +76,9 @@ resolve current versions; do not force numbers you remember.
 - CI (ruff + pytest), Docker, migrations: `references/quality-gates.md`.
 - Gitignore `.env*` and any service-account JSON. Provide `.env.example`.
   Settings load from env through `pydantic-settings`, never hardcoded.
-- Add `docs/` and a README.
+- Add `docs/` and a README. For a public repo, ship the full open-source docs set
+  per `../shared/open-source-docs.md` and run the open-source hard gate in
+  `../shared/no-ai-attribution.md` before the first push.
 
 ## Step 5. Verify before declaring done
 

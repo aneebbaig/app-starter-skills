@@ -1,0 +1,29 @@
+name: Feature or convention request
+description: Suggest a new stack, a new default, or a change to a convention.
+labels: ["enhancement"]
+body:
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Kind of request
+      options:
+        - New stack (a whole new skill)
+        - New default within an existing skill
+        - Change an existing convention
+        - New variant question
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposal
+      description: What you want and why. If it changes a default, say what it replaces.
+    validations:
+      required: true
+  - type: textarea
+    id: prior-art
+    attributes:
+      label: Prior art
+      description: A repo or doc that shows the convention working, if any.
+    validations:
+      required: false

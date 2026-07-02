@@ -21,10 +21,49 @@ lib/
     widgets/      shared UI, toasts routed through a global messenger key
   features/
     <feature>/
-      data/         datasources (abstract + impl), mappers, repositories
+      data/         datasources (abstract + impl), mappers, repositories (impl)
       domain/       entities, repository interfaces, use cases (each a Provider)
       presentation/ providers (Notifier / AsyncNotifier), screens, widgets
 ```
+
+## Non-negotiable conventions
+
+These are hard rules for every Flutter app, not suggestions.
+
+- Feature-first, clean architecture. Every feature owns its `data`, `domain`,
+  and `presentation` folders. No cross-feature reach-in; talk through domain
+  interfaces.
+- Use cases in `domain/usecases/`. Presentation calls a use case, never a
+  repository or datasource directly. Each use case is single-responsibility and
+  exposed as a Provider.
+- Datasources are an abstract interface plus an implementation
+  (`FooRemoteDataSource` + `FooRemoteDataSourceImpl`). Repositories are an
+  abstract interface in `domain/` plus an impl in `data/`. Bind impl to interface
+  through DI (`@LazySingleton(as: AbstractClass)`). Depend on interfaces, never on
+  a concrete impl.
+- Custom widgets live in `core/widgets/` (shared across features) or the
+  feature's `presentation/widgets/` (feature-local). Build reusable widgets, do
+  not copy-paste UI.
+- Extensions live in `core/utils/` (for example `date_ext.dart`,
+  `context_ext.dart`, `string_ext.dart`). Reach for an extension before a
+  free-floating helper function.
+- Central utils in `core/utils/`. Shared logic goes here once, not duplicated per
+  feature.
+
+## Constants for everything, zero hardcoding
+
+No magic strings and no magic numbers anywhere in the codebase. Everything lives
+in a named constant:
+
+- Route names in `core/constants/route_names.dart`.
+- Colors, typography, spacing, and dimensions in `core/constants/` (or the
+  theme). Widgets read from these, never inline hex or raw pixel values.
+- Storage keys, API paths, durations, and limits in named constants.
+- User-facing strings in a constants or localization file, not inline literals.
+
+If you are about to type a literal string or number into a widget or a service,
+stop and put it in a constant first. Reviewers should be able to grep the
+constants files and find every tunable value in the app.
 
 ## Error model (Either / Failure)
 

@@ -10,11 +10,20 @@ Claude Code injects the real current date into the session. Believe it. Your
 training cutoff is months behind it. Any statement like "the latest version is
 X" from memory is a guess and is probably wrong. Confirm versions live (rule 2).
 
-## 2. Latest stable packages, verified live
+## 2. Latest stable packages, verified live (never hardcoded)
 
-Before scaffolding, run the skill's `scripts/check-latest.sh`. It queries the
-real registry (npm, pub.dev, PyPI) for current stable versions. Pin what the
-script reports, not what you remember.
+Order of operations, every time:
+
+1. Read the injected current date (rule 1). That is "now".
+2. As of that date, query the real registry for current stable versions by
+   running the skill's `scripts/check-latest.sh` (npm, pub.dev, PyPI).
+3. Pin what the script reports.
+
+No version number is hardcoded anywhere in these skills. The `references/*.md`
+files describe the stack by package NAME and never carry a pinned version,
+because versions go stale the moment they are written. If you ever see a version
+number in a reference file, treat it as a bug and ignore it in favor of the live
+check. Pin what the registry says now, not what you remember.
 
 - Prefer the latest STABLE release. Do not pull prereleases (alpha, beta, rc)
   unless the ecosystem norm requires it (for example next-auth v5 is beta but is

@@ -33,6 +33,15 @@ the parts that fit the stack.
 - Never bundle API keys or secrets as assets or dart-defines that ship in the
   binary. BYOK keys stay in `flutter_secure_storage`; backend calls go through an
   authenticated server, not a key baked into the app.
+- A `--dart-define`d backend URL (`API_BASE_URL` or similar) is a plain
+  readable string in the compiled binary, not a secret exactly, but a real leak
+  if the owner wants that backend's existence or address kept unlisted. If a
+  release build is going to be publicly downloadable (a published GitHub
+  Release, an app store listing), either make the server URL
+  runtime-configurable (ask on first launch, store locally) instead of
+  build-time, or keep the release as a **draft** (`draft: true` on
+  `softprops/action-gh-release` or equivalent) so the artifact itself is never
+  public - visible only to accounts with push access to the repo.
 - Strip logging in release. Do not print tokens, payloads, or internal state.
 
 ## Next.js

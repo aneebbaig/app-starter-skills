@@ -85,3 +85,5 @@ resolve current versions; do not force numbers you remember.
 Run the gates in `references/quality-gates.md`: `ruff check`, `pytest`, the app
 imports and starts, `/health` responds, and Alembic can generate a revision.
 Report real results.
+
+Before scaffolding, run the short intake in `../shared/intake.md` (4 questions, smart defaults driven by app type). Apply `../shared/house-rules.md` (incl. the no-god-code rule and open-source-vs-private rule) throughout.

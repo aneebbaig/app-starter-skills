@@ -86,3 +86,5 @@ exact dependency set to add and `references/structure.md` for the folder layout.
 Run the quality gates in `references/quality-gates.md` (typecheck, lint,
 production build, and a dev-server smoke check). Report real results. If a build
 fails, fix it or say so with the output. Do not claim done on an unbuilt app.
+
+Before scaffolding, run the short intake in `../shared/intake.md` (4 questions, smart defaults driven by app type). Apply `../shared/house-rules.md` (incl. the no-god-code rule and open-source-vs-private rule) throughout.

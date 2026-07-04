@@ -90,3 +90,5 @@ Then add dependencies from `references/stack.md` and lay out the folders from
 Run the gates in `references/quality-gates.md`: `fvm flutter analyze` must be
 zero issues, `fvm flutter test` green, and the app must build and run. Report
 real results.
+
+Before scaffolding, run the short intake in `../shared/intake.md` (4 questions, smart defaults driven by app type). Apply `../shared/house-rules.md` (incl. the no-god-code rule and open-source-vs-private rule) throughout.

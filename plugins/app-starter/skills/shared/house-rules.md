@@ -70,3 +70,22 @@ trailers, ever.
 Each skill asks a short set of variant questions up front (license, visibility,
 deploy target, and so on). Ask those, then build without further hand-holding.
 Do not re-litigate settled choices or narrate options you will not take.
+
+## No god functions, files, or architecture
+
+Keep units small and single-purpose. This is a hard rule, not a preference.
+
+- **Functions do one thing.** If a function needs "and"/"then" to describe it, split it. Rough ceiling ~50 lines; extract helpers past that.
+- **No god files.** A file has one clear responsibility. Rough ceiling ~300-400 lines; split by concern (a route ≠ its validation ≠ its data access). Barrel/util dumping grounds ("utils.ts" holding 40 unrelated helpers) are banned — group by domain.
+- **No god objects/modules.** No single class/module that knows about everything. Depend on small interfaces, not one mega-service.
+- **Layer separation.** UI ≠ business logic ≠ data access. A component must not run SQL; a route handler must not render.
+- **Review check:** before finishing a change, if any function or file grew past the ceiling or took on a second responsibility, split it before committing.
+
+## Open source vs private drives license, docs, and CI
+
+Ask up front (see intake.md) whether the app is open source or private — it changes real artifacts:
+
+- **Open source:** add a `LICENSE` (default MIT unless told otherwise), `CONTRIBUTING.md`, `CODE_OF_CONDUCT.md`, `SECURITY.md`, a public-facing `README` (what/why/quickstart/screenshots), and CI that runs on PRs from forks. No secrets or internal URLs anywhere in the repo.
+- **Private:** no `LICENSE` needed (or a proprietary notice), leaner README (setup + deploy only), internal notes allowed. CI still runs, but assumes trusted contributors.
+
+Never publish a repo as open source with a baked-in backend URL, key, or internal doc. Decide open-vs-private FIRST; it gates what files get generated.

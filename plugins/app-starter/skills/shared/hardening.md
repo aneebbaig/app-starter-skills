@@ -20,6 +20,49 @@ the parts that fit the stack.
 - Turn off any debug or introspection surface in production (debug flags, admin
   panels behind auth, verbose headers).
 
+## Auth and user management (all stacks)
+
+The default auth is `better-auth` (see the Next.js stack reference); it provides
+most of the following out of the box via config and plugins. Prefer its built-ins
+over hand-rolling. These are the properties every app must end up with, whichever
+way auth is wired:
+
+- **The backend is the security boundary, never the client.** A deployed API
+  endpoint is reachable by anyone with `curl`, whether or not the web app or APK
+  is public. Hiding the client (private release, obscure URL) is not a security
+  control - it is obscurity. Gate access with real authentication, lockout, and
+  (if the instance must stay private) a network gate such as Tailscale or
+  Cloudflare Access. Never rely on "nobody knows the URL / has the app."
+- **No open registration for single-owner / household apps.** The first user is
+  created by a guarded setup flow (only when zero users exist) or a seed script -
+  not a public signup route. Additional users are created only by an
+  authenticated admin.
+- **Never ship default or guessable credentials.** A seed script must not fall
+  back to a hardcoded password (`changeme123`, `demo12345`, ...). If the password
+  env var is unset, generate a strong random one and print it once; enforce a
+  minimum length when provided. Public backend + known default password = instant
+  takeover, and lockout never even triggers.
+- **Brute-force lockout on login.** Count failed attempts and lock the account
+  for a cooldown after a threshold (e.g. 5 attempts / 15 min). Store the counter
+  in the database, not memory, so it survives stateless serverless invocations.
+  A wrong 2FA code counts toward the same lockout.
+- **TOTP 2FA is opt-in per user.** The secret is encrypted at rest, never stored
+  plaintext. Backup codes are single-use and hashed (bcrypt). At login, a correct
+  password with 2FA enabled but no code is *not* a failed attempt - it prompts for
+  the code; a wrong code is a failed attempt.
+- **Step-up (re-auth) for sensitive account changes.** Require the current
+  password to BOTH enable and disable 2FA (asymmetry is a bug - a merely-open
+  session must not be able to bind an attacker's authenticator or strip 2FA off),
+  and for password change. An open session alone is not enough for these.
+- **Encrypt recoverable secrets at rest** (TOTP seeds, BYOK provider API keys)
+  with AES-256-GCM keyed from an env var (e.g. `TOTP_ENC_KEY`). One-way values
+  (passwords) are hashed with bcrypt cost 12, never encrypted.
+- **Privileged actions are gated server-side by role + session**, re-checked in
+  the server action / route handler - never trusted from the client. Block
+  self-service privilege escalation (a user promoting themselves to admin).
+- **Generic auth errors.** "Invalid email or password" - never reveal whether the
+  email exists. Do not leak lockout internals beyond "try again in N minutes."
+
 ## Flutter
 
 - Release builds with obfuscation and split debug info:

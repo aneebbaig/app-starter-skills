@@ -6,14 +6,14 @@
   },
   "metadata": {
     "description": "Opinionated bootstrap skills for Next.js, Flutter, and FastAPI apps.",
-    "version": "0.3.0"
+    "version": "0.3.1"
   },
   "plugins": [
     {
       "name": "app-starter",
       "source": "./plugins/app-starter",
       "description": "Bootstrap new Next.js, Flutter, and FastAPI apps with current packages, no deprecated APIs, and a consistent house style.",
-      "version": "0.3.0",
+      "version": "0.3.1",
       "author": {
         "name": "Aneeb Baig"
       },

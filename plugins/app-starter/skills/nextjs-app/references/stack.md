@@ -25,14 +25,14 @@ starting point, not a lockfile. Always pin to the live stable versions from
 
 ## Auth (default: better-auth)
 
-- `better-auth` — email+password, framework-agnostic, plugin ecosystem. This is
+- `better-auth`, email+password, framework-agnostic, plugin ecosystem. This is
   the single auth standard across every app the owner ships, **web AND mobile**,
   so there is one system to learn and maintain. It replaces both the old
   hand-rolled JWT pattern and next-auth.
 - Enable these by default:
-  - `twoFactor` (TOTP) plugin — authenticator-app 2FA, opt-in per user, with
+  - `twoFactor` (TOTP) plugin, authenticator-app 2FA, opt-in per user, with
     single-use backup codes.
-  - Built-in rate limiting / brute-force protection — configure it, do not
+  - Built-in rate limiting / brute-force protection, configure it, do not
     hand-roll a lockout.
   - `bearer` / JWT plugin for any app with a Flutter (or other native) client:
     the mobile app authenticates against the same backend with tokens instead of
@@ -40,7 +40,7 @@ starting point, not a lockfile. Always pin to the live stable versions from
 - Use the Prisma adapter and run better-auth's own schema generation for the
   user/session/2FA tables. Do not hand-write those tables.
 - Verify the current better-auth setup and plugin APIs against its docs before
-  wiring — it moves fast.
+  wiring, it moves fast.
 
 ## UI (default: shadcn/ui + Tailwind v4)
 

@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.1](https://github.com/aneebbaig/app-starter-skills/compare/app-starter-skills-v0.3.0...app-starter-skills-v0.3.1) (2026-07-08)
+
+
+### Bug Fixes
+
+* remove em dashes flagged by the style-guard CI check ([1d4ce57](https://github.com/aneebbaig/app-starter-skills/commit/1d4ce573f64474a66554131c67b8cba28da03e9c))
+
 ## [0.3.0](https://github.com/aneebbaig/app-starter-skills/compare/app-starter-skills-v0.2.0...app-starter-skills-v0.3.0) (2026-07-08)
 
 

@@ -28,7 +28,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: subosito/flutter-action@v2
         with:
-          channel: stable
+          flutter-version-file: .fvmrc
           cache: true
       - run: flutter pub get
       - run: dart run build_runner build --delete-conflicting-outputs
@@ -36,8 +36,10 @@ jobs:
       - run: flutter test
 ```
 
-Match the Flutter version to the FVM pin. Pin action majors to current when you
-write this.
+`flutter-version-file: .fvmrc` reads the FVM-pinned version so CI matches
+local dev exactly; do not use `channel: stable` here, it can drift to a
+different Flutter version than what's pinned. Pin action majors to current
+when you write this.
 
 ## Signing and secrets (Android)
 

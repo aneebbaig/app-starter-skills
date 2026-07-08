@@ -20,8 +20,8 @@ versions from `scripts/check-latest.sh`, not the numbers here.
 
 ## Auth
 
-- JWT via `python-jose[cryptography]` or `PyJWT`. Hash passwords with `bcrypt`
-  or `passlib[bcrypt]`.
+- JWT via `PyJWT`. Do not use `python-jose`; it is unmaintained and has known
+  algorithm-confusion CVEs. Hash passwords with `bcrypt` or `passlib[bcrypt]`.
 - OAuth (Google) via `google-auth` when the app signs users in with Google.
 
 ## Optional

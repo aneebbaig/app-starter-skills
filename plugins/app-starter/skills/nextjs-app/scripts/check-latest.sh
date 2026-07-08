@@ -7,7 +7,7 @@ pkgs=(
   next react react-dom typescript
   eslint eslint-config-next
   prisma @prisma/client @prisma/adapter-pg pg
-  next-auth @auth/prisma-adapter
+  better-auth
   tailwindcss @tailwindcss/postcss
   zod react-hook-form @hookform/resolvers
   zustand @tanstack/react-query @tanstack/react-table
@@ -28,5 +28,5 @@ for p in "${pkgs[@]}"; do
 done
 
 echo
-echo "Reminder: prefer latest stable. next-auth v5 ships a beta tag but is the"
-echo "current standard. Confirm framework APIs via Context7 before writing code."
+echo "Reminder: prefer latest stable. Confirm framework APIs via Context7"
+echo "before writing code."

@@ -7,7 +7,7 @@ pkgs=(
   flutter_riverpod riverpod_annotation riverpod_generator
   fpdart get_it injectable injectable_generator
   go_router dio http
-  drift drift_dev isar
+  drift drift_dev isar_community
   flutter_secure_storage shared_preferences
   flutter_screenutil fl_chart google_fonts
   device_info_plus package_info_plus connectivity_plus

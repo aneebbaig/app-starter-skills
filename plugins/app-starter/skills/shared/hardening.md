@@ -22,10 +22,12 @@ the parts that fit the stack.
 
 ## Auth and user management (all stacks)
 
-The default auth is `better-auth` (see the Next.js stack reference); it provides
-most of the following out of the box via config and plugins. Prefer its built-ins
-over hand-rolling. These are the properties every app must end up with, whichever
-way auth is wired:
+The default auth is `better-auth` for Next.js and Flutter clients (see the
+Next.js stack reference); it provides most of the following out of the box via
+config and plugins. FastAPI has no Python runtime for better-auth, so it uses
+JWT (`PyJWT`) directly instead (see `fastapi-app/references/stack.md`). Prefer
+better-auth's built-ins over hand-rolling wherever it's available. These are
+the properties every app must end up with, whichever way auth is wired:
 
 - **The backend is the security boundary, never the client.** A deployed API
   endpoint is reachable by anyone with `curl`, whether or not the web app or APK

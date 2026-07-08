@@ -78,7 +78,7 @@ You can always force one by typing its name as a command: `/nextjs-app`,
 
 | Skill | Stack |
 |---|---|
-| `nextjs-app` | Next.js App Router, TypeScript, Prisma + Postgres, next-auth, Tailwind with shadcn or Mantine. Private, open-source, or both. |
+| `nextjs-app` | Next.js App Router, TypeScript, Prisma + Postgres, better-auth, Tailwind with shadcn or Mantine. Private, open-source, or both. |
 | `flutter-app` | Flutter with FVM-pinned SDK, clean architecture, Riverpod, an Either/Failure error model, Play Store release setup. |
 | `fastapi-app` | FastAPI with async SQLAlchemy 2.0, asyncpg, Alembic, Pydantic v2, JWT auth, Docker plus Postgres. |
 

@@ -26,8 +26,8 @@ number in a reference file, treat it as a bug and ignore it in favor of the live
 check. Pin what the registry says now, not what you remember.
 
 - Prefer the latest STABLE release. Do not pull prereleases (alpha, beta, rc)
-  unless the ecosystem norm requires it (for example next-auth v5 is beta but is
-  the current auth standard). When you use a prerelease, say why in one line.
+  unless the ecosystem norm requires it. When you use a prerelease, say why in
+  one line.
 - After install, run the project's own version print (`next --version`,
   `flutter --version`, `pip show fastapi`) and record the real installed
   versions in the project's docs.

@@ -20,7 +20,10 @@ deliberate pinning; see the pinning notes.
 
 ## Data
 
-- Local DB: `drift` (+ `drift_dev`) for relational, or `isar` for object storage.
+- Local DB: `drift` (+ `drift_dev`) for relational, or `isar_community` for
+  object storage. Use `isar_community`, not the original `isar` package; the
+  original maintainer stepped back and the community fork is the maintained
+  successor.
 - Network: `dio` with an `ApiClient` wrapper and an auth interceptor
   (Bearer + refresh on 401), or plain `http` for a keyless BYOK REST client.
 - Secure storage: `flutter_secure_storage` for tokens and API keys. Non-sensitive

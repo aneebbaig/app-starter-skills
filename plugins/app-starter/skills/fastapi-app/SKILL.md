@@ -29,7 +29,7 @@ Then ask the variant questions. If a choice has multiple options, ask; do not
 assume. Ask in one batch, then proceed.
 
 1. Repo visibility: private, open-source, or private-plus-open-source.
-2. Auth: JWT (python-jose or PyJWT), OAuth (Google), API-key, or none yet.
+2. Auth: JWT (PyJWT), OAuth (Google), API-key, or none yet.
 3. Database: Postgres via async SQLAlchemy + asyncpg (default), or none yet.
 4. Dependency tooling: `uv` (default, fast) or `pip` + `requirements.txt`.
 5. Admin UI: SQLAdmin, or none.
@@ -53,7 +53,7 @@ Create a virtualenv and the layout from `references/structure.md`. With `uv`:
 ```
 uv init <name> && cd <name>
 uv add fastapi "uvicorn[standard]" "sqlalchemy[asyncio]" asyncpg alembic \
-       pydantic-settings python-jose[cryptography] httpx python-multipart
+       pydantic-settings pyjwt httpx python-multipart
 uv add --dev ruff pytest pytest-asyncio
 ```
 

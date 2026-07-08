@@ -1,6 +1,6 @@
 ---
 name: nextjs-app
-description: Bootstrap a new Next.js (App Router, TypeScript) web app with current packages and no deprecated APIs. Use when the user wants to start, scaffold, or set up a new Next.js project, a React web app, a SaaS or dashboard or landing page on Next.js, or asks to "create a new nextjs app". Handles private, open-source, and private-plus-open-source variants, Prisma and Postgres, next-auth, Tailwind, and shadcn or Mantine.
+description: Bootstrap a new Next.js (App Router, TypeScript) web app with current packages and no deprecated APIs. Use when the user wants to start, scaffold, or set up a new Next.js project, a React web app, a SaaS or dashboard or landing page on Next.js, or asks to "create a new nextjs app". Handles private, open-source, and private-plus-open-source variants, Prisma and Postgres, better-auth, Tailwind, and shadcn or Mantine.
 ---
 
 # nextjs-app
@@ -30,7 +30,7 @@ choice has multiple options, ask; do not assume. Ask in one batch.
    (a private product with a separate public core or SDK). See
    `references/variants.md`.
 2. Data layer: Prisma + Postgres (default), a different DB, or none yet.
-3. Auth: next-auth v5 (default), Clerk, or none yet.
+3. Auth: better-auth by default (see `../shared/intake.md`); ask only if the user wants Clerk instead, or none yet.
 4. UI kit: shadcn/ui + Tailwind (default), Mantine, or plain Tailwind.
 5. Deploy target: Vercel (default) or self-host (Docker).
 6. Package manager: pnpm (default) or npm.

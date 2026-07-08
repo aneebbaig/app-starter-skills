@@ -7,7 +7,7 @@ pkgs=(
   fastapi uvicorn
   sqlalchemy asyncpg alembic
   pydantic pydantic-settings
-  python-jose pyjwt bcrypt passlib
+  pyjwt bcrypt passlib
   google-auth httpx python-multipart
   sqladmin ruff pytest pytest-asyncio uv
 )

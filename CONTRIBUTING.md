@@ -1,8 +1,8 @@
 # Contributing
 
-Thanks for looking. This repo holds bootstrap skills for Claude Code. The skills
-scaffold new Next.js, Flutter, and FastAPI apps with current packages and a
-consistent structure.
+Thanks for looking. This repo holds skills for Claude Code that scaffold new
+Next.js, Flutter, and FastAPI apps, and audit or retrofit existing ones, with
+current packages and a consistent structure.
 
 ## Repo layout
 
@@ -11,7 +11,9 @@ consistent structure.
 plugins/app-starter/
   .claude-plugin/plugin.json         plugin manifest
   skills/
-    shared/                          house rules read by every skill
+    shared/                          rules read by every skill: house rules,
+                                     intake, existing-app audit, hardening,
+                                     git and CI, no-ai-attribution
     nextjs-app/  flutter-app/  fastapi-app/
       SKILL.md                       short: description + workflow
       references/                    the detail (stack, structure, gates)

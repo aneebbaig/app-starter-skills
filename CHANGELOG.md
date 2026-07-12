@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.4.0](https://github.com/aneebbaig/app-starter-skills/compare/app-starter-skills-v0.3.1...app-starter-skills-v0.4.0) (2026-07-12)
+
+
+### Features
+
+* **skills:** existing-app audit mode, unified intake, bloc option, hardened gates ([bed7f0a](https://github.com/aneebbaig/app-starter-skills/commit/bed7f0a6ecb999f0688ed30324afab85b334c876))
+
 ## [0.3.1](https://github.com/aneebbaig/app-starter-skills/compare/app-starter-skills-v0.3.0...app-starter-skills-v0.3.1) (2026-07-08)
 
 

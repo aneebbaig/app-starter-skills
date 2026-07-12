@@ -38,8 +38,11 @@ jobs:
 
 `flutter-version-file: .fvmrc` reads the FVM-pinned version so CI matches
 local dev exactly; do not use `channel: stable` here, it can drift to a
-different Flutter version than what's pinned. Pin action majors to current
-when you write this.
+different Flutter version than what's pinned. Confirm the installed
+flutter-action version actually supports reading `.fvmrc`; if not, pass the
+pinned version explicitly via `flutter-version`. Pin action majors to current
+when you write this. Skip the build_runner step when the project has no
+codegen packages.
 
 ## Signing and secrets (Android)
 

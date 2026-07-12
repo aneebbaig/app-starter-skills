@@ -61,16 +61,21 @@ jobs:
       - uses: actions/checkout@v4
       - name: Scan for forbidden strings
         run: |
-          if grep -rIniE 'cla[u]de|anthrop[i]c|<owner-handle>' . \
+          if grep -rIniE 'cla[u]de|anthrop[i]c|cop[i]lot|chat[g]pt|<owner-handle>' . \
                --exclude-dir=node_modules --exclude-dir=.git \
                --exclude='*.lock' --exclude='package-lock.json' \
+               --exclude='pnpm-lock.yaml' --exclude='yarn.lock' \
                --exclude='guard.yml' --exclude='.gitignore'; then
             echo "::error::Forbidden term found. Remove before merging."
             exit 1
           fi
 ```
 
-Two gotchas that will bite otherwise:
+Replace `<owner-handle>` with the owner's real handle or brand terms they want
+kept out of the public repo, or drop that alternative entirely. Do not ship
+the literal placeholder.
+
+Three gotchas that will bite otherwise:
 
 - Exclude the workflow file itself (`guard.yml`) - the pattern source contains
   the literal string it is searching for.
@@ -78,6 +83,9 @@ Two gotchas that will bite otherwise:
   (`no-ai-attribution.md`) is itself a line containing the word "claude", so
   the guard will flag its own protection unless excluded. This is not
   theoretical: it happened on the first real use of this pattern.
+- Exclude every lockfile flavor the stack uses (`package-lock.json`,
+  `pnpm-lock.yaml`, `yarn.lock`, `*.lock`); registry metadata inside them can
+  trip the scan with false positives.
 
 ## Release automation
 

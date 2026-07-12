@@ -1,42 +1,47 @@
 ---
 name: flutter-app
-description: Bootstrap a new Flutter mobile app with clean architecture, Riverpod, FVM-pinned SDK, current packages, and no deprecated APIs. Use when the user wants to start, scaffold, or set up a new Flutter app, a cross-platform mobile app, an Android or iOS app in Dart, or asks to "create a new flutter app". Handles BYOK LLM apps, backend-backed apps, Play Store release setup, and clean-architecture feature structure.
+description: Bootstrap a new Flutter mobile app, or audit and retrofit an existing one, with clean architecture, Riverpod or bloc, FVM-pinned SDK, current packages, and no deprecated APIs. Use when the user wants to start, scaffold, or set up a new Flutter app, a cross-platform mobile app, an Android or iOS app in Dart, or asks to "create a new flutter app". ALSO use on an existing Flutter or Dart codebase when the user asks to audit, review, fix, clean up, refactor, modernize, upgrade, harden, or "bring up to standard" the app, fix analyzer issues, remove deprecated APIs, restructure to clean architecture, or migrate state management to Riverpod or bloc. Handles BYOK LLM apps, backend-backed apps, Play Store release setup, and clean-architecture feature structure.
 ---
 
 # flutter-app
 
-Bootstrap a new Flutter app the way this owner builds them: FVM-pinned SDK, clean
+Build or fix a Flutter app the way this owner builds them: FVM-pinned SDK, clean
 architecture (feature-first), Riverpod for state, an Either/Failure error model,
 current stable packages, and the house git and CI workflow with release-please
 and Play Store delivery.
 
 First read the shared rules (they override anything you remember):
-`../shared/house-rules.md`, `../shared/no-ai-attribution.md`,
-`../shared/git-and-ci.md`, `../shared/docs-and-context.md`,
-`../shared/hardening.md`, and (for public repos) `../shared/open-source-docs.md`.
+`../shared/house-rules.md`, `../shared/intake.md`,
+`../shared/no-ai-attribution.md`, `../shared/git-and-ci.md`,
+`../shared/docs-and-context.md`, `../shared/hardening.md`, and (for public
+repos) `../shared/open-source-docs.md`.
 
-## Step 0. Get the brief, then ask the variant questions (hard stop)
+## Step 0. Detect the mode, run the intake (hard stop)
 
-This is a hard stop. Do not run any scaffolding command until the user has
-answered.
+Follow `../shared/intake.md` exactly: detect new-app vs existing-app mode from
+the directory and the user's words, then ask the matching intake batch. Do not
+run any scaffolding or editing command until it is answered.
 
-First, get the project brief: one paragraph on what the app does, its main
-features, target users, and any hard constraints. If the user has not given one,
-ask for it. The brief drives naming, the feature list, and the data model.
+**Existing-app mode:** skip to `../shared/existing-app.md` and follow it,
+using this skill's `references/` as the standard to audit against. Steps 1-5
+below are for new-app mode only.
 
-Then ask the variant questions. If a choice has multiple options, ask; do not
-assume. Ask in one batch, then proceed.
+**New-app mode:** the intake covers brief, app type, visibility, scale, and
+release target. The only stack variants left to settle, each with a default
+the app type usually decides (ask ONLY the ones the answers leave ambiguous,
+in the same batch):
 
-1. Repo visibility: private, open-source, or private-plus-open-source.
-2. Backend: BYOK (each user supplies their own LLM key, no backend), a custom
+1. Backend: BYOK (each user supplies their own LLM key, no backend), a custom
    backend (Dio + JWT auth), or none yet. See `references/architecture.md`.
-3. State codegen: Riverpod with codegen (`@riverpod` + build_runner) or plain
-   Riverpod with hand-written providers. Default: codegen.
-4. Local data: Drift, Isar, shared_preferences only, or none yet.
-5. Auth: Google Sign-In, none, or backend-driven.
-6. Release target: Play Store (default), App Store, or both.
+2. State management: Riverpod (default) or bloc (`flutter_bloc`). If Riverpod,
+   also settle codegen (`@riverpod` + build_runner, default) vs hand-written
+   providers. If bloc, follow `references/bloc-practices.md` for everything
+   state-related; the clean architecture stays identical either way.
+3. Local data: Drift, Isar, shared_preferences only, or none yet.
+4. Auth: Google Sign-In, backend-driven, or none.
+5. Release target: Play Store (default), App Store, or both.
 
-If the user already answered some, do not re-ask.
+If the user already answered something in their prompt, do not re-ask.
 
 ## Step 1. Pin the SDK with FVM and verify versions
 
@@ -66,11 +71,14 @@ Then add dependencies from `references/stack.md` and lay out the folders from
   widgets, extensions, central utils, constants for everything, zero hardcoding):
   `references/architecture.md`.
 - Riverpod and Flutter do's and don'ts, and code smells to avoid:
-  `references/best-practices.md`.
+  `references/best-practices.md`. If the state answer is bloc, use
+  `references/bloc-practices.md` for all state-holder patterns instead of the
+  Riverpod sections (the widget and code-smell sections still apply).
 - Dependency set and pinning notes (some packages must be pinned to avoid
   analyzer conflicts): `references/stack.md`.
 - Production hardening (obfuscated release builds, no baked-in secrets, no debug
   symbols in git): `../shared/hardening.md`.
+- The no-god-code rule and layer separation: `../shared/house-rules.md` rule 8.
 
 ## Step 4. Git, CI, release, docs, security
 
@@ -88,7 +96,6 @@ Then add dependencies from `references/stack.md` and lay out the folders from
 ## Step 5. Verify before declaring done
 
 Run the gates in `references/quality-gates.md`: `fvm flutter analyze` must be
-zero issues, `fvm flutter test` green, and the app must build and run. Report
-real results.
-
-Before scaffolding, run the short intake in `../shared/intake.md` (4 questions, smart defaults driven by app type). Apply `../shared/house-rules.md` (incl. the no-god-code rule and open-source-vs-private rule) throughout.
+zero issues, `fvm flutter test` green, and the app must build and run. Then run
+the done gate in `../shared/house-rules.md` rule 10 and echo each answer.
+Report real results.

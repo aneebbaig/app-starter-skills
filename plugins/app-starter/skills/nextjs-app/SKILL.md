@@ -1,41 +1,42 @@
 ---
 name: nextjs-app
-description: Bootstrap a new Next.js (App Router, TypeScript) web app with current packages and no deprecated APIs. Use when the user wants to start, scaffold, or set up a new Next.js project, a React web app, a SaaS or dashboard or landing page on Next.js, or asks to "create a new nextjs app". Handles private, open-source, and private-plus-open-source variants, Prisma and Postgres, better-auth, Tailwind, and shadcn or Mantine.
+description: Bootstrap a new Next.js (App Router, TypeScript) web app, or audit and retrofit an existing one, with current packages and no deprecated APIs. Use when the user wants to start, scaffold, or set up a new Next.js project, a React web app, a SaaS or dashboard or landing page on Next.js, or asks to "create a new nextjs app". ALSO use on an existing Next.js or React codebase when the user asks to audit, review, fix, clean up, refactor, modernize, upgrade, harden, or "bring up to standard" the app, remove deprecated APIs, improve the structure, or apply house rules. Handles private, open-source, and private-plus-open-source variants, Prisma and Postgres, better-auth, Tailwind, and shadcn or Mantine.
 ---
 
 # nextjs-app
 
-Bootstrap a new Next.js web app the way this owner builds them: App Router,
+Build or fix a Next.js web app the way this owner builds them: App Router,
 TypeScript strict, current stable packages, no deprecated APIs, a clean feature
 structure, and the house git and CI workflow.
 
 First read these shared rules (they override anything you remember):
-`../shared/house-rules.md`, `../shared/no-ai-attribution.md`,
-`../shared/git-and-ci.md`, `../shared/docs-and-context.md`,
-`../shared/hardening.md`, and (for public repos) `../shared/open-source-docs.md`.
+`../shared/house-rules.md`, `../shared/intake.md`,
+`../shared/no-ai-attribution.md`, `../shared/git-and-ci.md`,
+`../shared/docs-and-context.md`, `../shared/hardening.md`, and (for public
+repos) `../shared/open-source-docs.md`.
 
-## Step 0. Get the brief, then ask the variant questions (hard stop)
+## Step 0. Detect the mode, run the intake (hard stop)
 
-This is a hard stop. Do not run any scaffolding command until the user has
-answered.
+Follow `../shared/intake.md` exactly: detect new-app vs existing-app mode from
+the directory and the user's words, then ask the matching intake batch. Do not
+run any scaffolding or editing command until it is answered.
 
-First, get the project brief: one paragraph on what the app does, its main
-features, target users, and any hard constraints. If the user has not given one,
-ask for it. The brief drives naming, the route groups, and the data model.
+**Existing-app mode:** skip to `../shared/existing-app.md` and follow it,
+using this skill's `references/` as the standard to audit against. Steps 1-5
+below are for new-app mode only.
 
-Then present the variant choices below, wait for the answers, and build. If a
-choice has multiple options, ask; do not assume. Ask in one batch.
+**New-app mode:** the intake covers brief, app type, visibility, scale, and
+deploy target. The only stack variants left to settle, each with a default the
+app type usually decides (ask ONLY the ones the answers leave ambiguous, in
+the same batch):
 
-1. Repo visibility: private, open-source (public), or private-plus-open-source
-   (a private product with a separate public core or SDK). See
-   `references/variants.md`.
-2. Data layer: Prisma + Postgres (default), a different DB, or none yet.
-3. Auth: better-auth by default (see `../shared/intake.md`); ask only if the user wants Clerk instead, or none yet.
-4. UI kit: shadcn/ui + Tailwind (default), Mantine, or plain Tailwind.
-5. Deploy target: Vercel (default) or self-host (Docker).
-6. Package manager: pnpm (default) or npm.
+1. Data layer: Prisma + Postgres (default), a different DB, or none yet.
+2. Auth: better-auth (default); Clerk or none only if the user says so.
+3. UI kit: shadcn/ui + Tailwind (default), Mantine, or plain Tailwind.
+4. Package manager: pnpm (default) or npm.
+5. Visibility variants (private / open-source / both): `references/variants.md`.
 
-If the user already answered some of these in their prompt, do not re-ask.
+If the user already answered something in their prompt, do not re-ask.
 
 ## Step 1. Verify environment and current versions
 
@@ -68,6 +69,7 @@ exact dependency set to add and `references/structure.md` for the folder layout.
   handling): `references/variants.md`.
 - Production hardening so the shipped app does not leak secrets or internals:
   `../shared/hardening.md`.
+- The no-god-code rule and layer separation: `../shared/house-rules.md` rule 8.
 
 ## Step 4. Git, CI, docs, security
 
@@ -84,7 +86,7 @@ exact dependency set to add and `references/structure.md` for the folder layout.
 ## Step 5. Verify before declaring done
 
 Run the quality gates in `references/quality-gates.md` (typecheck, lint,
-production build, and a dev-server smoke check). Report real results. If a build
-fails, fix it or say so with the output. Do not claim done on an unbuilt app.
-
-Before scaffolding, run the short intake in `../shared/intake.md` (4 questions, smart defaults driven by app type). Apply `../shared/house-rules.md` (incl. the no-god-code rule and open-source-vs-private rule) throughout.
+production build, and a dev-server smoke check), then run the done gate in
+`../shared/house-rules.md` rule 10 and echo each answer. Report real results.
+If a build fails, fix it or say so with the output. Do not claim done on an
+unbuilt app.

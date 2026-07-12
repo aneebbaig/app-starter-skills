@@ -5,14 +5,14 @@
     "url": "https://github.com/aneebbaig"
   },
   "metadata": {
-    "description": "Opinionated bootstrap skills for Next.js, Flutter, and FastAPI apps.",
+    "description": "Opinionated skills that bootstrap new Next.js, Flutter, and FastAPI apps and audit or retrofit existing ones.",
     "version": "0.3.1"
   },
   "plugins": [
     {
       "name": "app-starter",
       "source": "./plugins/app-starter",
-      "description": "Bootstrap new Next.js, Flutter, and FastAPI apps with current packages, no deprecated APIs, and a consistent house style.",
+      "description": "Bootstrap new Next.js, Flutter, and FastAPI apps, or audit and retrofit existing ones, with current packages, no deprecated APIs, and a consistent house style.",
       "version": "0.3.1",
       "author": {
         "name": "Aneeb Baig"
@@ -23,7 +23,10 @@
         "fastapi",
         "scaffold",
         "starter",
-        "bootstrap"
+        "bootstrap",
+        "audit",
+        "refactor",
+        "retrofit"
       ]
     }
   ]

@@ -1,8 +1,10 @@
 # Hardening: make the shipped app hard to reverse engineer
 
-Every app these skills scaffold should be built so that a shipped artifact leaks
-as little as possible: no secrets, no readable internals, no debug surface. Apply
-the parts that fit the stack.
+Every app these skills scaffold or retrofit should be built so that a shipped
+artifact leaks as little as possible: no secrets, no readable internals, no
+debug surface. Apply the parts that fit the stack. In existing-app mode these
+rules are the security section of the audit: every violation found is a
+finding, and security findings are fixed first.
 
 ## Rules for all stacks
 

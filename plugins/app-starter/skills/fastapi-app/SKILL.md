@@ -1,41 +1,43 @@
 ---
 name: fastapi-app
-description: Bootstrap a new FastAPI backend with async SQLAlchemy 2.0, asyncpg, Alembic, Pydantic v2, and no deprecated APIs. Use when the user wants to start, scaffold, or set up a new FastAPI service, a Python REST API, an async backend, or asks to "create a new fastapi app" or "new python backend". Handles JWT auth, layered app structure, Docker + Postgres, and Vercel or container deploy.
+description: Bootstrap a new FastAPI backend, or audit and retrofit an existing one, with async SQLAlchemy 2.0, asyncpg, Alembic, Pydantic v2, and no deprecated APIs. Use when the user wants to start, scaffold, or set up a new FastAPI service, a Python REST API, an async backend, or asks to "create a new fastapi app" or "new python backend". ALSO use on an existing FastAPI or Python API codebase when the user asks to audit, review, fix, clean up, refactor, modernize, upgrade, harden, or "bring up to standard" the service, migrate off SQLAlchemy 1.x or Pydantic v1 patterns, remove deprecated APIs, or improve the structure. Handles JWT auth, layered app structure, Docker + Postgres, and Vercel or container deploy.
 ---
 
 # fastapi-app
 
-Bootstrap a new FastAPI backend the way this owner builds them: async SQLAlchemy
+Build or fix a FastAPI backend the way this owner builds them: async SQLAlchemy
 2.0 with asyncpg, Alembic migrations, Pydantic v2 settings, a layered structure
 (routers, services, models, schemas), JWT auth, and the house git and CI
 workflow. Deployable to a container or Vercel.
 
 First read the shared rules (they override anything you remember):
-`../shared/house-rules.md`, `../shared/no-ai-attribution.md`,
-`../shared/git-and-ci.md`, `../shared/docs-and-context.md`,
-`../shared/hardening.md`, and (for public repos) `../shared/open-source-docs.md`.
+`../shared/house-rules.md`, `../shared/intake.md`,
+`../shared/no-ai-attribution.md`, `../shared/git-and-ci.md`,
+`../shared/docs-and-context.md`, `../shared/hardening.md`, and (for public
+repos) `../shared/open-source-docs.md`.
 
-## Step 0. Get the brief, then ask the variant questions (hard stop)
+## Step 0. Detect the mode, run the intake (hard stop)
 
-This is a hard stop. Do not run any scaffolding command until the user has
-answered.
+Follow `../shared/intake.md` exactly: detect new-app vs existing-app mode from
+the directory and the user's words, then ask the matching intake batch. Do not
+run any scaffolding or editing command until it is answered.
 
-First, get the project brief: one paragraph on what the service does, its main
-resources and endpoints, who calls it, and any hard constraints. If the user has
-not given one, ask for it. The brief drives naming, the domain modules, and the
-data model.
+**Existing-app mode:** skip to `../shared/existing-app.md` and follow it,
+using this skill's `references/` as the standard to audit against. Steps 1-5
+below are for new-app mode only.
 
-Then ask the variant questions. If a choice has multiple options, ask; do not
-assume. Ask in one batch, then proceed.
+**New-app mode:** the intake covers brief, app type, visibility, scale, and
+deploy target. The only stack variants left to settle, each with a default the
+app type usually decides (ask ONLY the ones the answers leave ambiguous, in
+the same batch):
 
-1. Repo visibility: private, open-source, or private-plus-open-source.
-2. Auth: JWT (PyJWT), OAuth (Google), API-key, or none yet.
-3. Database: Postgres via async SQLAlchemy + asyncpg (default), or none yet.
-4. Dependency tooling: `uv` (default, fast) or `pip` + `requirements.txt`.
-5. Admin UI: SQLAdmin, or none.
-6. Deploy target: Docker container (default) or Vercel serverless.
+1. Auth: JWT via PyJWT (default), OAuth (Google), API-key, or none yet.
+   better-auth has no Python runtime; PyJWT is the FastAPI standard.
+2. Database: Postgres via async SQLAlchemy + asyncpg (default), or none yet.
+3. Dependency tooling: `uv` (default, fast) or `pip` + `requirements.txt`.
+4. Admin UI: SQLAdmin, or none (default: none).
 
-If the user already answered some, do not re-ask.
+If the user already answered something in their prompt, do not re-ask.
 
 ## Step 1. Verify environment and current versions
 
@@ -69,6 +71,7 @@ resolve current versions; do not force numbers you remember.
 - Dependency set and version-boundary notes: `references/stack.md`.
 - Production hardening (docs and schema disabled or gated in prod, generic error
   bodies, debug off, CORS locked): `../shared/hardening.md`.
+- The no-god-code rule and layer separation: `../shared/house-rules.md` rule 8.
 
 ## Step 4. Git, CI, docs, security
 
@@ -84,6 +87,5 @@ resolve current versions; do not force numbers you remember.
 
 Run the gates in `references/quality-gates.md`: `ruff check`, `pytest`, the app
 imports and starts, `/health` responds, and Alembic can generate a revision.
-Report real results.
-
-Before scaffolding, run the short intake in `../shared/intake.md` (4 questions, smart defaults driven by app type). Apply `../shared/house-rules.md` (incl. the no-god-code rule and open-source-vs-private rule) throughout.
+Then run the done gate in `../shared/house-rules.md` rule 10 and echo each
+answer. Report real results.

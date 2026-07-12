@@ -23,7 +23,8 @@ lib/
     <feature>/
       data/         datasources (abstract + impl), mappers, repositories (impl)
       domain/       entities, repository interfaces, use cases (each a Provider)
-      presentation/ providers (Notifier / AsyncNotifier), screens, widgets
+      presentation/ state holders (Riverpod Notifier/AsyncNotifier, or
+                    Bloc/Cubit when bloc was chosen), screens, widgets
 ```
 
 ## Non-negotiable conventions
@@ -83,7 +84,13 @@ sealed class Failure {
 // failure.userMessage -> safe display copy. failure.debugMessage -> raw, logs only.
 ```
 
-## Riverpod patterns
+## State management (Riverpod default, bloc on request)
+
+The layers below presentation never change with the state choice. Use cases,
+repositories, and datasources have no idea whether a Notifier or a Bloc calls
+them.
+
+Riverpod (default):
 
 - Provider chain: use-case provider reads the repository provider, which reads the
   datasource provider; a presentation `AsyncNotifierProvider` calls the use case.
@@ -92,6 +99,11 @@ sealed class Failure {
 - With codegen, run build_runner after any `@riverpod`, `@injectable`, or Drift
   table change:
   `fvm dart run build_runner build --delete-conflicting-outputs`.
+
+Bloc (when chosen): read `bloc-practices.md`. Short version: blocs/cubits take
+use cases in the constructor, register as get_it factories, are provided per
+screen with `BlocProvider`, render with `BlocBuilder`, side-effect with
+`BlocListener`, and fold `Either<Failure, T>` into sealed states.
 
 ## Two app shapes
 

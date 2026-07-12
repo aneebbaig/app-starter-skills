@@ -11,8 +11,11 @@ deliberate pinning; see the pinning notes.
 
 ## State and architecture
 
-- `flutter_riverpod` + `riverpod_annotation` (codegen path) with
+- Default: `flutter_riverpod` + `riverpod_annotation` (codegen path) with
   `riverpod_generator` + `build_runner` in dev deps.
+- Bloc variant (when the user picks bloc): `flutter_bloc` + `equatable`, with
+  `bloc_test` and `mocktail` in dev deps. See `bloc-practices.md`. Pick one
+  state solution, never both in one app.
 - `fpdart` for the `Either<Failure, T>` return type across use cases.
 - DI: `get_it` + `injectable` (+ `injectable_generator`).
 - Routing: `go_router` for declarative or deep-linked apps; imperative

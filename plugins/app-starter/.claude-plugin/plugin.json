@@ -1,6 +1,6 @@
 {
   "name": "app-starter",
-  "description": "Bootstrap new Next.js, Flutter, and FastAPI apps with current packages, no deprecated APIs, and a consistent house style. Ships skills nextjs-app, flutter-app, and fastapi-app.",
+  "description": "Bootstrap new Next.js, Flutter, and FastAPI apps, or audit and retrofit existing ones, with current packages, no deprecated APIs, and a consistent house style. Ships skills nextjs-app, flutter-app, and fastapi-app.",
   "version": "0.3.1",
   "author": {
     "name": "Aneeb Baig",
@@ -15,6 +15,9 @@
     "fastapi",
     "scaffold",
     "starter",
-    "bootstrap"
+    "bootstrap",
+    "audit",
+    "refactor",
+    "retrofit"
   ]
 }

@@ -35,9 +35,23 @@ Keep a short `README.md` at the repo root: what the app is, how to run it, how t
 contribute. Match the visibility variant (a public repo README is written for
 strangers; a private one can be terse).
 
-## Optional: graphify knowledge graph
+## Local AI tooling (optional, never committed)
 
-If the owner uses graphify, add a short note to the project README or internal
-docs pointing at `graphify-out/` and how to query it. Do not add a committed
-`CLAUDE.md` for this; keep AI-tool files out of the repo (see
-`no-ai-attribution.md`).
+The intake offers these; set up only what the user picked. Hard boundary: all
+of it is local developer tooling. Every file or folder it creates is added to
+`.gitignore` in the same step that creates it, and none of it may ever appear
+in a commit, on any branch (see `no-ai-attribution.md`).
+
+- **graphify**: builds a knowledge graph of the codebase into `graphify-out/`.
+  On later sessions, query the graph instead of re-reading source files; on a
+  large existing app this is the single biggest token saver. Gitignore
+  `graphify-out/`.
+- **caveman plugin**: compressed response mode for Claude Code, roughly 75%
+  fewer output tokens with the technical content intact. Session-side only;
+  it creates nothing in the repo. Its `/caveman:compress` command can also
+  shrink a local `CLAUDE.md` or memory file to cut input tokens.
+- **Local `CLAUDE.md`**: a project context file speeds sessions up, but it is
+  an AI-tool file, so it stays gitignored. Never commit it, even on private
+  repos, so a later open-sourcing cannot leak it from history.
+
+If the user declines, skip all of it silently; do not re-offer later.

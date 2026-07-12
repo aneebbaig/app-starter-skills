@@ -5,6 +5,7 @@ set -euo pipefail
 
 pkgs=(
   flutter_riverpod riverpod_annotation riverpod_generator
+  flutter_bloc equatable bloc_test mocktail
   fpdart get_it injectable injectable_generator
   go_router dio http
   drift drift_dev isar_community

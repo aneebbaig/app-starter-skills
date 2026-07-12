@@ -5,6 +5,10 @@ providers. Confirm current Riverpod API details via Context7 first, because the
 provider syntax and codegen naming change between majors and this file describes
 patterns by intent, not by a pinned version.
 
+If the user chose bloc instead of Riverpod, skip the two Riverpod sections and
+use `bloc-practices.md` for state; the widget sections and code smells below
+still apply unchanged.
+
 ## Riverpod: do
 
 - Use the latest stable Riverpod and, by default, code generation
